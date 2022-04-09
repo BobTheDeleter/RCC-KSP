@@ -1,26 +1,57 @@
 <script>
     import Text from "./displayTypes/Text.svelte"
 
-    export let currentPacket
-
-    let data = [{"p":0}]
-    const req = "p.paused"
-
-    async function update() {
-        data.push(currentPacket["p"])
+    export let latestPacket = {
+        p: 0,
+        r: 0,
+        s: 0,
+        l: 0,
+        b: 0,
+        g: 0,
     }
 
-    //const requestLoop = setInterval(get, 200)
+    $: {
+        data.push({
+            "p":latestPacket.p
+        })
+    }
+
+    function conStr(con) {
+        if (con == 0) {
+            return "Connected"
+        } else if (con == 1) {
+            return "Paused"
+        } else {
+            return "Connection error!"
+        }
+    }
+
+    function toggleStr(tog) {
+        return tog? "ON":"OFF"
+    }
+
+    let data = [{"p":0}]
 </script>
 
-<section class="status">
-    <Text currentVal = {data[data.length-1]["p"]} measurement="Paused: "/>
-    <button on:click={() => update()}>Update</button>
+<section>
+    <p><b>Ship Status</b></p>
+    <hr color="darkgrey" width="90%">
+    <Text name = "Connection" bind:currentVal = {latestPacket.p} parser = {conStr}/>
+    <Text name = "RCS" bind:currentVal = {latestPacket.r} parser = {toggleStr}/>
+    <Text name = "SAS" bind:currentVal = {latestPacket.s} parser = {toggleStr}/>
+    <Text name = "Lights" bind:currentVal = {latestPacket.l} parser = {toggleStr}/>
+    <Text name = "Brakes" bind:currentVal = {latestPacket.b} parser = {toggleStr}/>
+    <Text name = "Landing gear" bind:currentVal = {latestPacket.g} parser = {toggleStr}/>
+
 </section>
 
 <style>
-.status{
-    grid-column-start: 1;
-    grid-column-end: 2;
-}
+    section {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        border-style: solid;
+        border-color: grey;
+        border-radius: .5em;
+        border-width: .2em;
+    }
 </style>

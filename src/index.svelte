@@ -9,20 +9,24 @@
     import VesselNP from "./modules/VesselNP.svelte"
 
     const debug = true
-    const reqs = {
+    const design = true
 
-    }
+    const reqs = [
+        "p=p.paused"
+    ]
 
-    let currentPacket
-    function fetchData() {
-        const response = fetch(`datalink/${reqs.join("&")}`)
+    let latestPacket
+    async function fetchData() {
+        const response = await fetch(`http://127.0.0.1:8085/telemachus/datalink?${reqs.join("&")}`)
         .then(r => r.json())
-        .then(currentPacket = r)
+        .then(r => latestPacket = r)
     }
+
+    if (!design) {let requestLoop = setInterval(fetchData, 200)}
 </script>
 
 <section class="grid-container">
-    <Status currentPacket={currentPacket}/>
+    <Status bind:latestPacket/>
 
 </section>
 
@@ -33,7 +37,7 @@
     gap: 10px;
     width: 100vw;
     height: 100vh;
-    background-color: darkgrey;
+    background-color: lightgray;
     text-align: center;
 }
 </style>

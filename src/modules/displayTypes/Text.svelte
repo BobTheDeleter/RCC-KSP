@@ -1,8 +1,18 @@
 <script>
-    export let measurement
     export let currentVal
-
-    $: toDisplay = measurement+currentVal
+    export let name
+    export let parser
 </script>
 
-<p>{toDisplay}</p>
+<section>
+    <p><b>{name}</b> {parser(currentVal)}</p>
+</section>
+
+<style>
+    section {
+        text-align: left
+    }
+    p {
+        padding-left: 1em
+    }
+</style>
