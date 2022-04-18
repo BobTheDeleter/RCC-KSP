@@ -12,7 +12,4 @@
     section {
         text-align: left
     }
-    p {
-        padding-left: 1em
-    }
 </style>
