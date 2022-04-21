@@ -1,24 +1,18 @@
 <script>
-    import { onMount } from "svelte"
-
-    export let currentVal
+    export let currentVal = 0
     export let name
 
-    let img
-    let textColor
+    let img = "static/icons/toggleOff.png"
+    let textColor = "--highlight"
     let icon
 
     $: (currentVal) => {
+        img = currentVal? "static/icons/toggleOn.png":"static/icons/toggleOff.png"
+        textColor = currentVal? "--dark":"--highlight"
         if (icon) {
-            img = currentVal? "static/icons/toggleOn.png":"static/icons/toggleOff.png"
-            textColor = currentVal? "black":"darkgrey"
+            
         }
     }
-
-    onMount(() => {
-        img = currentVal? "./static/icons/toggleOn.png":"static/icons/toggleOff.png"
-        textColor = currentVal? "black":"darkgrey"
-    })
 </script>
 
 <section>
@@ -31,7 +25,8 @@
 <style>
     section {
         text-align: center;
-        font-size: small;
+        font-size: large;
+        overflow: hidden;
     }
     
     div {

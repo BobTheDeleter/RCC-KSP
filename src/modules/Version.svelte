@@ -8,10 +8,9 @@
 
 <style>
     section {
-        grid-row-start: 6;
-        grid-row-end: 8;
         grid-column-start: 1;
-        grid-column-end: 5;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
     }
-
 </style>

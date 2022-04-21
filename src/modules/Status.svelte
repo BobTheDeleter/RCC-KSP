@@ -16,31 +16,37 @@
     }
 </script>
 
-<section>
+<section class="section">
     <Label text="Ship Status" />
-    <hr color="darkgrey" width="90%">
-    <Text name = "Connection" bind:currentVal = {latestPacket.p} parser = {conStr}/>
+    <hr>
+    <div class="text-grid">
+        <Text name = "Connection" bind:currentVal = {latestPacket.paused} parser = {conStr}/>
+        <Text name = "Vessel Name" bind:currentVal = {latestPacket.name} />
+        <Text name = "Current Body" bind:currentVal = {latestPacket.body} />
+    </div>
+    
     <div class="toggle-grid">
-        <Toggle name = "RCS" bind:currentVal = {latestPacket.r} />
-        <Toggle name = "Brakes" bind:currentVal = {latestPacket.b} />
-        <Toggle name = "Gear" bind:currentVal = {latestPacket.g} />
-        <Toggle name = "Lights" bind:currentVal = {latestPacket.l} />
-        <Toggle name = "SAS" bind:currentVal = {latestPacket.s} />
+        <Toggle name = "RCS" bind:currentVal = {latestPacket.rcs} />
+        <Toggle name = "Brakes" bind:currentVal = {latestPacket.brake} />
+        <Toggle name = "Gear" bind:currentVal = {latestPacket.gear} />
+        <Toggle name = "Lights" bind:currentVal = {latestPacket.light} />
+        <Toggle name = "SAS" bind:currentVal = {latestPacket.sas} />
     </div>
 </section>
 
 <style>
     section {
-        grid-column-start: 1;
-        grid-column-end: 2;
-        border-style: solid;
-        border-color: grey;
-        border-radius: .5em;
-        border-width: .2em;
+        grid-column-start: 2;
+        grid-column-end: 4;
     }
 
     .toggle-grid {
         display: grid;
         grid-template-columns: auto auto auto auto auto;
+    }
+
+    .text-grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
     }
 </style>

@@ -1,15 +1,15 @@
 <script>
     export let currentVal
     export let name
-    export let parser
+    export let parser = v => v
 </script>
 
 <section>
-    <p><b>{name}</b> {parser(currentVal)}</p>
+    <p><b>{name}</b> {parser? parser(currentVal):currentVal}</p>
 </section>
 
 <style>
     section {
-        text-align: left
+        text-align: left;
     }
 </style>

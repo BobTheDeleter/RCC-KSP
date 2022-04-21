@@ -1,17 +1,16 @@
 <script>
-
+    
 </script>
 
 <section class="section">
-
+    
 </section>
 
 <style>
     section {
-        grid-row-start: 6;
-        grid-row-end: 8;
-        grid-column-start: 1;
+        grid-column-start: 4;
         grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 6;
     }
-
 </style>
