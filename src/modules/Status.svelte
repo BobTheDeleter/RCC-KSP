@@ -2,8 +2,13 @@
     import Text from "./displayTypes/Text.svelte"
     import Toggle from "./displayTypes/Toggle.svelte"
     import Label from "./displayTypes/Label.svelte"
+    import { onMount } from "svelte"
 
     export let latestPacket
+    latestPacket["name"] = "Debug(debug)"
+    $: (latestPacket) => {
+        console.log(latestPacket)
+    }
 
     function conStr(con) {
         if (con == 0) {
@@ -14,14 +19,18 @@
             return "Connection error!"
         }
     }
+
+    function nameStr(name) {
+        return name.split("(")[1].split(")")[0]
+    }
 </script>
 
 <section class="section">
     <Label text="Ship Status" />
     <hr>
     <div class="text-grid">
-        <Text name = "Connection" bind:currentVal = {latestPacket.paused} parser = {conStr}/>
-        <Text name = "Vessel Name" bind:currentVal = {latestPacket.name} />
+        <Text name = "Connection" bind:currentVal = {latestPacket.pause} parser = {conStr}/>
+        <Text name = "Vessel Name" bind:currentVal = {latestPacket.name} parser = {nameStr}/>
         <Text name = "Current Body" bind:currentVal = {latestPacket.body} />
     </div>
     

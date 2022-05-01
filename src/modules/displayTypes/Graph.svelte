@@ -3,8 +3,25 @@
     import Chart from "chart.js/auto/auto.esm" 
     
     export let name = "Graph"
+    export let currentValX
+    export let currentValY
+    export let xLabel
+    export let yLabel
 
-    let chartCanvas;
+
+    const data = {
+        labels: [],
+        datasets: [{
+                    data: []
+        }],
+        update: x => x,
+    }
+
+    let chartCanvas
+    let chart = {
+        data: data,
+        update: x => x,
+    }
 
     onMount(() => {
         const style = getComputedStyle(chartCanvas)
@@ -16,12 +33,6 @@
             border: style.getPropertyValue("--border"),
         }
 
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                        data: [20, 10, 5, 2, 20, 30, 45]
-                }]
-        }
         const config = {
             type: "line",
             data: data,
@@ -39,12 +50,21 @@
 
                 scales: {
                     xAxis: {
-                        //type: "time",
+                        title: {
+                            display: true,
+                            text: xLabel,
+                            color: globalColors.highlight,
+                        },
                         ticks: {
                             color: globalColors.highlight,
                         }
                     },
                     yAxis: {
+                        title: {
+                            display: true,
+                            text: yLabel,
+                            color: globalColors.highlight,
+                        },
                         ticks: {
                             color: globalColors.highlight,
                         }
@@ -63,13 +83,23 @@
             }
         }
 
-        let chart = new Chart(chartCanvas, config)
+        chart = new Chart(chartCanvas, config)
     })
+
+    $: {
+        addData(chart, Math.round(currentValX), currentValY)
+    }
+
+    function addData(chart, x, y) {
+        chart.data.labels.push(x)
+        chart.data.datasets[0].data.push(y)
+        chart.update()
+    }
 
 </script>
 
-<section>
-    <canvas bind:this={chartCanvas} id="chart"></canvas>
+<section class="graph">
+    <canvas bind:this={chartCanvas}></canvas>
 </section>
 
 <style>

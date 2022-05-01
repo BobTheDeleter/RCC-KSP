@@ -6,12 +6,9 @@
     let textColor = "--highlight"
     let icon
 
-    $: (currentVal) => {
+    $: {
         img = currentVal? "static/icons/toggleOn.png":"static/icons/toggleOff.png"
         textColor = currentVal? "--dark":"--highlight"
-        if (icon) {
-            
-        }
     }
 </script>
 

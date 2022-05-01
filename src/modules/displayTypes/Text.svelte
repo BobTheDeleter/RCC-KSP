@@ -5,7 +5,7 @@
 </script>
 
 <section>
-    <p><b>{name}</b> {parser? parser(currentVal):currentVal}</p>
+    <p><b>{name}</b> {parser(currentVal)}</p>
 </section>
 
 <style>

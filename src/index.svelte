@@ -10,8 +10,8 @@
     import Mission from "./modules/Mission.svelte"
     import Version from "./modules/Version.svelte"
 
+    const design = false
     const debug = true
-    const design = true
 
     const reqs = [
         "pause=p.paused",
@@ -29,13 +29,14 @@
         "name=v.name",
         "gee=v.geeForce",
         "body=v.body",
+        "mTime=v.missionTime",
     ]
     const reqStr = reqs.join("&")
 
     let latestPacket = {}
     reqs.map(req => {
         const name = req.split(".")[1]
-        latestPacket[name] = 0
+        latestPacket[name] = "0"
     })
 
     async function fetchData() {
@@ -44,7 +45,7 @@
         .then(r => latestPacket = r)
     }
 
-    if (!design) {let requestLoop = setInterval(fetchData, 200)}
+    if (!design) {let requestLoop = setInterval(fetchData, 1000)}
 </script>
 
 <body>
