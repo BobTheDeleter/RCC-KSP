@@ -3,46 +3,68 @@
 </svelte:head>
 
 <script>
-    import Status from "./modules/Status.svelte"
-    import Display from "./modules/Display.svelte"
-    import Vessel from "./modules/Vessel.svelte"
-    import VesselNP from "./modules/VesselNP.svelte"
-    import Mission from "./modules/Mission.svelte"
-    import Version from "./modules/Version.svelte"
+    import Status from "./sections/Status.svelte"
+    import Display from "./sections/Display.svelte"
+    import Vessel from "./sections/Vessel.svelte"
+    import VesselNP from "./sections/VesselNP.svelte"
+    import Mission from "./sections/Mission.svelte"
+    import Logo from "./sections/Logo.svelte"
 
-    const design = false
+    const design = true
     const debug = true
 
-    const reqs = [
-        "pause=p.paused",
-        "rcs=v.rcsValue",
-        "sas=v.sasValue",
-        "light=v.lightValue",
-        "brake=v.brakeValue",
-        "gear=v.gearValue",
-        "alt=v.altitude",
-        "ter=v.heightFromTerrain",
-        "met=v.missionTime",
-        "surV=v.surfaceVelocity",
-        "angV=v.angularVelocity",
-        "orbV=v.orbitalVelocity",
-        "name=v.name",
-        "gee=v.geeForce",
-        "body=v.body",
-        "mTime=v.missionTime",
-    ]
-    const reqStr = reqs.join("&")
+    let reqs = {
+        status: [
+            "pause=p.paused",
+            "name=v.name",
+        ],
+        vessel: [
+            "alt=v.altitude",
+            "ter=v.heightFromTerrain",
+            "surV=v.surfaceVelocity",
+            "angV=v.angularVelocity",
+            "orbV=v.orbitalVelocity",
+        ],
+        vesselnp: [
+            "rcs=v.rcsValue",
+            "sas=v.sasValue",
+            "light=v.lightValue",
+            "brake=v.brakeValue",
+            "gear=v.gearValue",
+            "atmoD=v.atmosphericDensity",
+            "sma=o.sma",
+            "ecc=o.eccentricity",
+            "inc=o.inclination",
+            "anomTrue=o.trueAnomaly",
+            "longDN=o.lan",
+            "argP=o.argumentOfPeriapsis",
+            "gee=v.geeForce",
+            "body=v.body",
+        ],
+        mission: [
+            "met=v.missionTime",
+            "mTime=v.missionTime",
+        ],
+        set: (section, value) => reqs[section] = value,
+        add: (section, val) => reqs[section].push(val),
+        remove: (section, val) => reqs[section] = reqs[section].filter(i => i != val)
+    }
+
+    $: (reqs) => reqStrs = {
+        status: reqs.status.join("&"),
+        vessel: reqs.vesselnp.join("&"),
+        vesselnp: reqs.vesselnp.join("&"),
+        misison: reqs.mission.join("&"),
+    } 
 
     let latestPacket = {}
-    reqs.map(req => {
-        const name = req.split(".")[1]
-        latestPacket[name] = "0"
-    })
 
     async function fetchData() {
-        const response = await fetch(`http://127.0.0.1:8085/telemachus/datalink?${reqStr}`)
-        .then(r => r.json())
-        .then(r => latestPacket = r)
+        for (const str in reqStrs) {
+            const response = await fetch(`http://127.0.0.1:8085/telemachus/datalink?${reqStrs[str]}`)
+            .then(r => r.json())
+            .then(r => latestPacket[str] = r)
+        }
     }
 
     if (!design) {let requestLoop = setInterval(fetchData, 1000)}
@@ -51,7 +73,7 @@
 <body>
     <section class="component-grid">
         <Status bind:latestPacket />
-        <Version />
+        <Logo/>
         <Mission />
         <Vessel bind:latestPacket />
         <VesselNP bind:latestPacket />
@@ -64,14 +86,14 @@
     :root {
         --border: #1C1642;
         --bg: #26618D;
-        --dark: #313F86;
+        --dark: #313f86;
         --light: #1791DE;
         --highlight: #5BDEF0;
     }
     .component-grid {
         display: grid;
-        grid-template-columns: 25% 25% 25% 25%;
-        grid-template-rows: 25% auto auto auto auto 15%;
+        grid-template-columns: 15% 15% 35% 35%;
+        grid-template-rows: auto auto auto auto auto auto;
         gap: 1em;
         width: 100vw;
         height: 100vh;
@@ -80,7 +102,13 @@
     }
 
     body {
-        margin: 0px;
+        margin: 0;
+        padding: 0;
+        user-select: none; /* supported by Chrome and Opera */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
     }
 
     :global(p) {

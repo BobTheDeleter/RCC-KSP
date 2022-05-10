@@ -1,6 +1,6 @@
 <script>
-    export let currentVal
-    export let name
+    export let currentVal = "val"
+    export let name = "Text"
     export let parser = v => v
 </script>
 

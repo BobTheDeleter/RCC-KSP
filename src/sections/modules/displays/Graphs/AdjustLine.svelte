@@ -3,18 +3,17 @@
     import Chart from "chart.js/auto/auto.esm" 
     
     export let name = "Graph"
-    export let currentValX
-    export let currentValY
+    export let currentValX = 0
+    export let currentValY = 0
     export let xLabel
     export let yLabel
-
+    export let range
 
     const data = {
-        labels: [],
+        labels: [...new Array(range[1]-range[0]).map((_, i) => i)],
         datasets: [{
-                    data: []
+                    data: new Array(range[1]-range[0]),
         }],
-        update: x => x,
     }
 
     let chartCanvas
@@ -91,8 +90,7 @@
     }
 
     function addData(chart, x, y) {
-        chart.data.labels.push(x)
-        chart.data.datasets[0].data.push(y)
+        chart.data.datasets[0].data[x] = y
         chart.update()
     }
 
