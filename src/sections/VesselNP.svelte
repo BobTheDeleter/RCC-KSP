@@ -1,25 +1,19 @@
 <script>
-    import Toggle from "./modules/displays/Toggle.svelte"
     import Text from "./modules/displays/Text.svelte"
+    import Label from "./modules/displays/Label.svelte"
 
     export let latestPacket
 </script>
 
 <section class="section">
-    <div class="toggle-grid">
-        <Toggle name = "RCS" bind:currentVal = {latestPacket.rcs} />
-        <Toggle name = "Brakes" bind:currentVal = {latestPacket.brake} />
-        <Toggle name = "Gear" bind:currentVal = {latestPacket.gear} />
-        <Toggle name = "Lights" bind:currentVal = {latestPacket.light} />
-        <Toggle name = "SAS" bind:currentVal = {latestPacket.sas} />
-    </div>
-    
+    <Label>Vessel Situation</Label>
+    <hr>
     <div class="text-grid">
-        <Text name = "Current Body" bind:currentVal = {latestPacket.body} />
-        <Text name = "Semimajor Axis" bind:currentVal = {latestPacket.sma}/>
-        <Text name = "Longitude of Ascending Node" bind:currentVal = {latestPacket.lan}/>
-        <Text name = "Argument of Periapsis" bind:currentVal = {latestPacket.argP}/>
-        <Text name = "Inclination" bind:currentVal = {latestPacket.inc}/>
+        <Text bind:currentVal = {latestPacket.vesselnp.body}>Current Body</Text>
+        <Text bind:currentVal = {latestPacket.vesselnp.sma}>Semimajor Axis</Text>
+        <Text bind:currentVal = {latestPacket.vesselnp.lan}>Longitude of Ascending Node</Text>
+        <Text bind:currentVal = {latestPacket.vesselnp.argP}>Argument of Periapsis</Text>
+        <Text bind:currentVal = {latestPacket.vesselnp.inc}>Inclination</Text>
     </div>
 </section>
 
@@ -27,14 +21,8 @@
     section {
         grid-row-start: 6;
         grid-row-end: 8;
-        grid-column-start: 1;
+        grid-column-start: 2;
         grid-column-end: 5;
-        display: inline-flex;
-    }
-
-    .toggle-grid {
-        display: grid;
-        grid-template-columns: auto auto auto;
     }
 
     .text-grid {

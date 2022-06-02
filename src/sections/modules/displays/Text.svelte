@@ -1,11 +1,10 @@
 <script>
     export let currentVal = "val"
-    export let name = "Text"
     export let parser = v => v
 </script>
 
 <section>
-    <p><b>{name}</b> {parser(currentVal)}</p>
+    <p><b><slot></slot></b> {parser(currentVal)}</p>
 </section>
 
 <style>

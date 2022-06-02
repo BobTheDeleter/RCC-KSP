@@ -1,5 +1,5 @@
 # RCC-KSP
-Riced Command Centre is my attempt at a modern mission monitoring (and hopefully control) centre for Kerbal Space Program, using the [Telemachus mod](https://github.com/KSP-Telemachus/Telemachus) and [Svelte](https://www.npmjs.com/package/svelte). It displays craft and mission data in a clean, modern GUI, allowing for more of a "mission control" experience than the game itself. 
+Riced Command Centre is my attempt at a modern mission monitoring (and hopefully control) centre for Kerbal Space Program, using the [Telemachus mod](https://github.com/KSP-Telemachus/Telemachus) and [Svelte](https://www.npmjs.com/package/svelte). 
 
 ## How to install
 ### Dependencies
@@ -27,4 +27,4 @@ npm run build
 - Navigate to `localhost:8085/telemachus/rcc-ksp/public/index.html` 
 
 ## Why though?
-When I saw the Telemachus mod, I could see there was a lot you could do with it, and indeed it comes with many GUIs which have their own styles and features. I simply want to create my own, with a different style (closer to something you'd find on [r/unixporn](https://www.reddit.com/r/unixporn/)) and a few unique features that wouldn't really make sense in the other GUIs, such as a mission outline board, camera feed and potentially other modules which, while not neccesarily helpful in-game, do create a more fun roleplay experience.
+When I saw the Telemachus mod, I could see there was a lot you could do with it, and indeed it comes with many GUIs which have their own styles and features. I simply want to create my own, with a different style (closer to something you'd find on [r/unixporn](https://www.reddit.com/r/unixporn/)) and a few unique features that wouldn't really make sense in the other GUIs, such as a mission outline board, camera feed and potentially other modules which, while not neccesarily helpful in-game, are fun to look at/use.

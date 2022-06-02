@@ -1,9 +1,11 @@
 <script>
+    import Label from "./modules/displays/Label.svelte"
 
 </script>
 
 <section class="section">
-    
+    <Label>Mission</Label>
+    <hr>
 </section>
 
 <style>

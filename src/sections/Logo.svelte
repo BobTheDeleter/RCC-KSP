@@ -2,7 +2,7 @@
 </script>
 
 <section class="section">
-    <img src="static\icons\logo-transparent.png" alt="RCC-KSP logo">
+    <img src="./static/icons/logo-transparent.png" alt="RCC-KSP logo">
 </section>
 
 <style>

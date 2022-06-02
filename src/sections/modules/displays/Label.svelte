@@ -1,5 +1,1 @@
-<script>
-    export let text
-</script>
-
-<p><b>{text}</b></p>
+<p><b><slot></slot></b></p>

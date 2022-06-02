@@ -43,7 +43,7 @@
                 elements: {
                     point: {radius:0},
                     line: {
-                        borderColor: globalColors.light
+                        borderColor: globalColors.highlight
                     }   
                 },
 

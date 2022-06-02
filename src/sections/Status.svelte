@@ -3,26 +3,23 @@
     import Label from "./modules/displays/Label.svelte"
 
     export let latestPacket
-    latestPacket["name"] = "Debug(debug)"
-    $: (latestPacket) => {
-        console.log(latestPacket)
-    }
+    latestPacket.status.name = "Debug(debug)"
 </script>
 
 <section class="section">
-    <Label text="Status" />
+    <Label>Status</Label>
     <hr>
     <div class="text-grid">
-        <Text name = "Connection" bind:currentVal = {latestPacket.pause} parser = {c => {
-            if (c == 0) {
+        <Text name = "Connection" bind:currentVal = {latestPacket.status.pause} parser = {p => {
+            if (p === 0) {
             return "Connected"
-            } else if (c == 1) {
+            } else if (p === 1) {
                 return "Paused"
             } else {
                 return "Connection error!"
             }
         }}/>
-        <Text name = "Vessel Name" bind:currentVal = {latestPacket.name} parser = {n => n.split("(")[1].split(")")[0]}/>
+        <Text name = "Vessel Name" bind:currentVal = {latestPacket.status.name} parser = {n => n.split("(")[1].split(")")[0]}/>
     </div>
     
 

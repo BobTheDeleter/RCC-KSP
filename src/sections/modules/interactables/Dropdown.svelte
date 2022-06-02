@@ -1,19 +1,20 @@
 <script>
-    export let buttonText
+    import Button from "./Button.svelte"
+
+    export let items
+    export let itemNameParser
+
+    export let selection
 
     let isDown = false
-    function toggleDropdown() {
-        isDown = !isDown
-    }
 </script>
 
 <section>
-    <button class="drop-btn" on:click={toggleDropdown}>{buttonText}</button>
+    <Button func={() => isDown = !isDown}><slot></slot></Button>
     <div class="dropdown-content" style="display: {isDown? "block":"none"};">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-
+        {#each items as item, index}
+            <Button  func={() => {selection = index; isDown = false}}>{itemNameParser(item)}</Button>
+        {/each}
     </div>
 </section>
 
